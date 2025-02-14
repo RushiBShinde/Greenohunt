@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<p>Welcome, {{ current_user.team_name }}!</p>
+<p>Your current progress: Step {{ current_step }}</p>
+
+{% if next_path %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Next Riddle</h5>
+            <p class="card-text">{{ next_path.riddle }}</p>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-success">
+        You have completed all clues. Congratulations!
+    </div>
+{% endif %}
+
+<hr>
+<h3>Scan QR Code</h3>
+<!-- For demo purposes, enter the QR code value manually -->
+<form method="POST" action="{{ url_for('scan') }}">
+    <div class="form-group">
+        <label for="qr_code">QR Code Value</label>
+        <input type="text" class="form-control" id="qr_code" name="qr_code" required>
+    </div>
+    <button type="submit" class="btn btn-success">Submit QR Code</button>
+</form>
+
+<hr>
+<p><a href="{{ url_for('logout') }}">Logout</a></p>
+{% endblock %}
